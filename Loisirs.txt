@@ -1,0 +1,5 @@
+Cuisine : plats en sauce, desserts, entrées, préparation de la dinde
+Informatique : Windows, Linux, Photoshop, jeux vidéos
+Musique : chanson française, chanson anglaise, pop, rock, hardcore
+Sport : football, rugby, handball, tennis, squash, natation, course à pied, vélo
+Divers : lecture, cinéma, restaurant
