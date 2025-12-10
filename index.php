@@ -4,7 +4,7 @@
 <head>
     <title>Initialisation BDD Personnes</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet"  href="style.css" type="text/css"  media="screen" />
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 </head>
 
 <body>
@@ -23,17 +23,45 @@
     </div>
 
     <div>
-
         <a href="?p=nouvellefiche">Nouvelle fiche</a>
+    </div>
 
+    <div>
+        <a href="?p=listefiches">Liste des fiches</a>
+    </div>
+
+    <div>
+        <a href="?p=explorerloisirs">Explorer les fiches par loisir</a>
     </div>
 
 <?php
 
-if (isset($_GET['p']) && $_GET['p'] === 'install') {
-    include('install.php');
-} elseif (isset($_GET["p"]) && $_GET['p'] === 'nouvellefiche'){
-    include('nouvellefiche.php');
+if (isset($_GET['p'])) {
+    switch ($_GET['p']) {
+        case 'install':
+            include('install.php');
+            break;
+        case 'nouvellefiche':
+            include('nouvellefiche.php');
+            break;
+        case 'listefiches':
+            include('listefiches.php');
+            break;
+        case 'afficherfiche':
+            include('afficherfiche.php');
+            break;
+        case 'modifierfiche':
+            include('modifierfiche.php');
+            break;
+        case 'explorerloisirs':
+            include('explorerloisirs.php');
+            break;
+        case 'fichesparloisir':
+            include('fichesparloisir.php');
+            break;
+        default:
+            echo "<p>Page non trouvée.</p>";
+    }
 }
 ?>
 </main>

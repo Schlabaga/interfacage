@@ -69,7 +69,7 @@ $dateFormatee = $dateNaissance->format('d/m/Y');
 </div>
 
 <br>
-<a href="?p=updatefiche&id=<?php echo $id_personne; ?>">
+<a href="?p=modifierfiche&id=<?php echo $id_personne; ?>">
     <button type="button">Modifier la fiche</button>
 </a>
 

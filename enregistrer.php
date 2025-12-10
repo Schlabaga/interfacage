@@ -20,7 +20,18 @@ $id_personne = mysqli_insert_id($mysqli);
 if (!empty($_POST['loisirs'])) {
     foreach ($_POST['loisirs'] as $id_mot) {
         $id_mot = intval($id_mot);
-        query($mysqli, "INSERT INTO personnes_loisirs (id_personne, id_mot) VALUES ($id_personne, $id_mot)");
+
+        // Récupérer id_categorie et mot_cle depuis la table mots_cles
+        $result = query($mysqli, "SELECT id_categorie, mot_cle FROM mots_cles WHERE id_mot = $id_mot");
+        $mot_data = mysqli_fetch_assoc($result);
+
+        if ($mot_data) {
+            $id_categorie = $mot_data['id_categorie'];
+            $mot_cle = mysqli_real_escape_string($mysqli, $mot_data['mot_cle']);
+
+            query($mysqli, "INSERT INTO personnes_loisirs (id_personne, id_categorie, mot_cle) 
+                            VALUES ($id_personne, $id_categorie, '$mot_cle')");
+        }
     }
 }
 
