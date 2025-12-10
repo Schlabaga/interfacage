@@ -14,13 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $telephone = mysqli_real_escape_string($mysqli, $_POST['telephone'] ?? "");
         $mail = mysqli_real_escape_string($mysqli, $_POST['mail'] ?? "");
 
+        // Gestion de la date : NULL si vide
+        $dateSQL = (!empty($naissance)) ? "'$naissance'" : "NULL";
+        $adresseSQL = (!empty($adresse)) ? "'$adresse'" : "NULL";
+        $telephoneSQL = (!empty($telephone)) ? "'$telephone'" : "NULL";
+        $mailSQL = (!empty($mail)) ? "'$mail'" : "NULL";
+
         // Mise à jour des informations de la personne
         query($mysqli, "UPDATE personnes SET 
             nom_prenom = '$nom_prenom',
-            date_naissance = '$naissance',
-            adresse = '$adresse',
-            telephone = '$telephone',
-            email = '$mail'
+            date_naissance = $dateSQL,
+            adresse = $adresseSQL,
+            telephone = $telephoneSQL,
+            email = $mailSQL
             WHERE id_personne = $id_personne");
 
         // Suppression des anciens loisirs
@@ -118,10 +124,10 @@ while ($mot = mysqli_fetch_assoc($resMots)) {
 
     <!-- Coordonnées -->
     <p>Nom Prénom : <input type="text" name="nom_prenom" value="<?php echo htmlspecialchars($personne['nom_prenom']); ?>" required></p>
-    <p>Adresse : <input type="text" name="adresse" value="<?php echo htmlspecialchars($personne['adresse']); ?>"></p>
-    <p>Date de naissance : <input type="date" name="naissance" value="<?php echo htmlspecialchars($personne['date_naissance']); ?>"></p>
-    <p>Téléphone : <input type="text" name="telephone" value="<?php echo htmlspecialchars($personne['telephone']); ?>"></p>
-    <p>Email : <input type="email" name="mail" value="<?php echo htmlspecialchars($personne['email']); ?>"></p>
+    <p>Adresse : <input type="text" name="adresse" value="<?php echo htmlspecialchars($personne['adresse'] ?? ''); ?>"></p>
+    <p>Date de naissance : <input type="date" name="naissance" value="<?php echo htmlspecialchars($personne['date_naissance'] ?? ''); ?>"></p>
+    <p>Téléphone : <input type="text" name="telephone" value="<?php echo htmlspecialchars($personne['telephone'] ?? ''); ?>"></p>
+    <p>Email : <input type="email" name="mail" value="<?php echo htmlspecialchars($personne['email'] ?? ''); ?>"></p>
 
     <hr>
 

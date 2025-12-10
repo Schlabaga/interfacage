@@ -8,11 +8,17 @@ $nom_prenom = mysqli_real_escape_string($mysqli, $_POST['nom_prenom']);
 $adresse = mysqli_real_escape_string($mysqli, $_POST['adresse'] ?? "");
 $naissance = mysqli_real_escape_string($mysqli, $_POST['naissance'] ?? "");
 $telephone = mysqli_real_escape_string($mysqli, $_POST['telephone'] ?? "");
-$mail= mysqli_real_escape_string($mysqli, $_POST['mail'] ?? "");
+$mail = mysqli_real_escape_string($mysqli, $_POST['mail'] ?? "");
+
+// Gestion de la date : NULL si vide
+$dateSQL = (!empty($naissance)) ? "'$naissance'" : "NULL";
+$adresseSQL = (!empty($adresse)) ? "'$adresse'" : "NULL";
+$telephoneSQL = (!empty($telephone)) ? "'$telephone'" : "NULL";
+$mailSQL = (!empty($mail)) ? "'$mail'" : "NULL";
 
 // Insertion personne
 query($mysqli, "INSERT INTO personnes (nom_prenom, date_naissance, adresse, telephone, email)
-                VALUES ('$nom_prenom', '$naissance','$adresse', '$telephone', '$mail')");
+                VALUES ('$nom_prenom', $dateSQL, $adresseSQL, $telephoneSQL, $mailSQL)");
 
 $id_personne = mysqli_insert_id($mysqli);
 
@@ -35,4 +41,7 @@ if (!empty($_POST['loisirs'])) {
     }
 }
 
-echo "Fiche enregistrée.";
+echo "Fiche enregistrée avec succès !<br>";
+echo "<a href='index.php?p=afficherfiche&id=$id_personne'>Voir la fiche</a> | ";
+echo "<a href='index.php'>Retour à l'accueil</a>";
+?>

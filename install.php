@@ -21,21 +21,20 @@
     query($mysqli, "DROP TABLE IF EXISTS `categories_loisir`");
 
     // =================================================================
-    // 1. TABLE `personnes` (Coordonnées)
+    // 1. TABLE `personnes` (Coordonnées) - AVEC CHAMPS OPTIONNELS
     // =================================================================
 
     query($mysqli, "CREATE TABLE `personnes` (
         `id_personne` INT UNSIGNED NOT NULL,
         `nom_prenom` VARCHAR(255) NOT NULL,
-        `date_naissance` DATE NOT NULL,
-        `adresse` VARCHAR(255) NOT NULL,
-        `telephone` VARCHAR(20) NOT NULL,
-        `email` VARCHAR(100) NOT NULL
+        `date_naissance` DATE DEFAULT NULL,
+        `adresse` VARCHAR(255) DEFAULT NULL,
+        `telephone` VARCHAR(20) DEFAULT NULL,
+        `email` VARCHAR(100) DEFAULT NULL
     )");
 
     query($mysqli, "ALTER TABLE `personnes`
-        ADD PRIMARY KEY (`id_personne`),
-        ADD UNIQUE KEY `email` (`email`)");
+        ADD PRIMARY KEY (`id_personne`)");
 
     query($mysqli, "ALTER TABLE `personnes`
         MODIFY `id_personne` INT UNSIGNED NOT NULL AUTO_INCREMENT");
@@ -137,11 +136,9 @@
         $valuesPersonnes = [];
 
         foreach ($fichesListe as $fiche) {
-            // $fiche[0] = nom_prenom, $fiche[1] =date_naissance, $fiche[2] = adresse,
-            // $fiche[3] = telephone, $fiche[4] =email
             $nom = mysqli_real_escape_string($mysqli, $fiche[0]);
 
-            // Conversion de la date pour SQL sinon ça fonctionne pas
+            // Conversion de la date pour SQL
             $dateOriginal = $fiche[1];
             $dateParts = explode("/", $dateOriginal);
             $dateMySQL = $dateParts[2] . "-" . $dateParts[1] . "-" . $dateParts[0];
@@ -222,27 +219,29 @@
         $email = $fiche[4];
         $id_personne = $mapPersonnes[$email];
 
-        // $fiche[5] contient les loisirs séparés par des virgules
+        // $fiche[5] contient les loisirs
         if (isset($fiche[5]) && !empty($fiche[5])) {
-            $loisirsPersonne = explode(",", $fiche[5]);
+            // Les loisirs sont séparés par "/" (Cuisine:mot1,mot2/Sport:mot3)
+            $categoriesLoisirs = explode("/", $fiche[5]);
 
-            foreach ($loisirsPersonne as $loisir) {
-                $loisir = trim($loisir);
+            foreach ($categoriesLoisirs as $catLoisir) {
+                $parts = explode(":", $catLoisir);
+                if (count($parts) === 2) {
+                    $categorie = trim($parts[0]);
+                    $motsCles = explode(",", $parts[1]);
 
-                // Trouver la catégorie correspondante
-                foreach ($loisirsStructure as $categorie => $motsCles) {
-                    if (in_array($loisir, $motsCles)) {
-                        $id_categorie = $mapCategories[$categorie];
-                        $motCle = mysqli_real_escape_string($mysqli, $loisir);
-
-                        $valuesAssociations[] = "($id_personne, $id_categorie, '$motCle')";
-                        break; // Sortir dès qu'on a trouvé la catégorie
+                    foreach ($motsCles as $mot) {
+                        $mot = trim($mot);
+                        if (isset($mapCategories[$categorie])) {
+                            $id_categorie = $mapCategories[$categorie];
+                            $motCle = mysqli_real_escape_string($mysqli, $mot);
+                            $valuesAssociations[] = "($id_personne, $id_categorie, '$motCle')";
+                        }
                     }
                 }
             }
         }
     }
-
 
     // Insert final
     if (!empty($valuesAssociations)) {

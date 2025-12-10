@@ -33,9 +33,12 @@ while ($loisir = mysqli_fetch_assoc($resultLoisirs)) {
     $loisirs[$loisir['nom_categorie']][] = $loisir['mot_cle'];
 }
 
-// Formatage de la date de naissance
-$dateNaissance = new DateTime($personne['date_naissance']);
-$dateFormatee = $dateNaissance->format('d/m/Y');
+// Formatage de la date de naissance (si elle existe)
+$dateFormatee = "Non renseignée";
+if (!empty($personne['date_naissance']) && $personne['date_naissance'] !== '0000-00-00') {
+    $dateNaissance = new DateTime($personne['date_naissance']);
+    $dateFormatee = $dateNaissance->format('d/m/Y');
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,9 +56,9 @@ $dateFormatee = $dateNaissance->format('d/m/Y');
     <h2>Coordonnées</h2>
     <p><strong>Nom Prénom :</strong> <?php echo htmlspecialchars($personne['nom_prenom']); ?></p>
     <p><strong>Date de naissance :</strong> <?php echo htmlspecialchars($dateFormatee); ?></p>
-    <p><strong>Adresse :</strong> <?php echo htmlspecialchars($personne['adresse']); ?></p>
-    <p><strong>Téléphone :</strong> <?php echo htmlspecialchars($personne['telephone']); ?></p>
-    <p><strong>Email :</strong> <?php echo htmlspecialchars($personne['email']); ?></p>
+    <p><strong>Adresse :</strong> <?php echo htmlspecialchars($personne['adresse'] ?: 'Non renseignée'); ?></p>
+    <p><strong>Téléphone :</strong> <?php echo htmlspecialchars($personne['telephone'] ?: 'Non renseigné'); ?></p>
+    <p><strong>Email :</strong> <?php echo htmlspecialchars($personne['email'] ?: 'Non renseigné'); ?></p>
 
     <?php if (!empty($loisirs)) : ?>
         <h2>Loisirs</h2>
