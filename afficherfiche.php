@@ -46,7 +46,6 @@ if (!empty($personne['date_naissance']) && $personne['date_naissance'] !== '0000
 <head>
     <meta charset="UTF-8">
     <title>Fiche de <?php echo htmlspecialchars($personne['nom_prenom']); ?></title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 </head>
 <body>
 
@@ -77,8 +76,7 @@ if (!empty($personne['date_naissance']) && $personne['date_naissance'] !== '0000
 </a>
 
 <br><br>
-<a href="?p=listefiches">Retour à la liste</a> |
-<a href="index.php">Retour à l'accueil</a>
+<a href="?p=listefiches">Retour à la liste</a> | <a href="index.php">Retour à l'accueil</a>
 
 </body>
 </html>

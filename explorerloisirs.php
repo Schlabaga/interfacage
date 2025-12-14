@@ -32,7 +32,6 @@ while ($cat = mysqli_fetch_assoc($resultCategories)) {
 <head>
     <meta charset="UTF-8">
     <title>Explorer les fiches par loisir</title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 </head>
 <body>
 
@@ -45,8 +44,8 @@ while ($cat = mysqli_fetch_assoc($resultCategories)) {
             <?php
             $liens = [];
             foreach ($cat['mots'] as $mot) {
-                $liens[] = '<a href="?p=fichesparloisir&id_mot=' . $mot['id'] . '">'
-                         . htmlspecialchars($mot['nom']) . '</a>';
+                // on génère le lien avec les paramètres des id mits
+                $liens[] = '<a href="?p=fichesparloisir&id_mot='.$mot['id'].'">'.htmlspecialchars($mot['nom']) . '</a>';
             }
             echo implode(', ', $liens);
             ?>

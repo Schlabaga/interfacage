@@ -113,7 +113,6 @@ while ($mot = mysqli_fetch_assoc($resMots)) {
 <head>
     <meta charset="UTF-8">
     <title>Modifier la fiche de <?php echo htmlspecialchars($personne['nom_prenom']); ?></title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 </head>
 <body>
 
@@ -122,7 +121,7 @@ while ($mot = mysqli_fetch_assoc($resMots)) {
 <form method="post" action="?p=modifierfiche&id=<?php echo $id_personne; ?>">
     <input type="hidden" name="id_personne" value="<?php echo $id_personne; ?>">
 
-    <!-- Coordonnées -->
+    <!-- coordonnées -->
     <p>Nom Prénom : <input type="text" name="nom_prenom" value="<?php echo htmlspecialchars($personne['nom_prenom']); ?>" required></p>
     <p>Adresse : <input type="text" name="adresse" value="<?php echo htmlspecialchars($personne['adresse'] ?? ''); ?>"></p>
     <p>Date de naissance : <input type="date" name="naissance" value="<?php echo htmlspecialchars($personne['date_naissance'] ?? ''); ?>"></p>
@@ -131,7 +130,7 @@ while ($mot = mysqli_fetch_assoc($resMots)) {
 
     <hr>
 
-    <!-- Loisirs dynamiques -->
+    <!-- loisirs dynamiques -->
     <div>
         <?php foreach ($categories as $cat) : ?>
             <p><strong><?php echo htmlspecialchars($cat['nom']); ?> :</strong>

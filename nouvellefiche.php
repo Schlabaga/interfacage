@@ -40,7 +40,7 @@ while ($mot = mysqli_fetch_assoc($resMots)) {
 
 <form method="post" action="enregistrer.php">
 
-    <!-- Coordonnées -->
+    <!-- coordonnées -->
     <p>Nom Prénom : <input type="text" name="nom_prenom" required></p>
     <p>Adresse : <input type="text" name="adresse"></p>
     <p>Date de naissance :  <input type="date" name="naissance"></p>
@@ -50,7 +50,7 @@ while ($mot = mysqli_fetch_assoc($resMots)) {
 
     <hr>
 
-    <!-- Loisirs dynamiques -->
+    <!-- loisirs dynamiques -->
     <div>
 
         <?php foreach ($categories as $cat) : ?>

@@ -12,7 +12,6 @@ $result = query($mysqli, "SELECT id_personne, nom_prenom FROM personnes ORDER BY
 <head>
     <meta charset="UTF-8">
     <title>Liste des fiches</title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 </head>
 <body>
 

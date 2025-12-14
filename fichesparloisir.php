@@ -40,7 +40,6 @@ $resultPersonnes = query($mysqli, "
 <head>
     <meta charset="UTF-8">
     <title>Personnes pratiquant : <?php echo htmlspecialchars($motInfo['mot_cle']); ?></title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
 
@@ -62,8 +61,7 @@ $resultPersonnes = query($mysqli, "
 <?php endif; ?>
 
 <br>
-<a href="?p=explorerloisirs">Retour à l'exploration des loisirs</a> |
-<a href="index.php">Retour à l'accueil</a>
+<a href="?p=explorerloisirs">Retour à l'exploration des loisirs</a> | <a href="index.php">Retour à l'accueil</a>
 
 </body>
 </html>
