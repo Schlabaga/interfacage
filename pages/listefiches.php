@@ -1,6 +1,6 @@
 <?php
-require_once("functions.inc.php");
-include_once("config.inc.php");
+require_once("data/functions.inc.php");
+include_once("data/config.inc.php");
 global $mysqli;
 
 // récupération de toutes les personnes triées par nom_prenom

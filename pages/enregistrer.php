@@ -1,7 +1,6 @@
 <?php
-require_once("functions.inc.php");
-require_once("config.inc.php");
-
+include_once("../data/functions.inc.php");
+include_once("../data/config.inc.php");
 global $mysqli;
 
 $nom_prenom = mysqli_real_escape_string($mysqli, $_POST['nom_prenom']);
@@ -42,6 +41,6 @@ if (!empty($_POST['loisirs'])) {
 }
 
 echo "Fiche enregistrée avec succès !<br>";
-echo "<a href='index.php?p=afficherfiche&id=$id_personne'>Voir la fiche</a> | ";
-echo "<a href='index.php'>Retour à l'accueil</a>";
+echo "<a href='../index.php?p=afficherfiche&id=$id_personne'>Voir la fiche</a> | ";
+echo "<a href='../index.php'>Retour à l'accueil</a>";
 ?>

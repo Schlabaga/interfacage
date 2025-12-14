@@ -1,7 +1,10 @@
 <?php
-require_once("functions.inc.php");
-include_once("config.inc.php");
+require_once("data/functions.inc.php");
+include_once("data/config.inc.php");
+
 global $mysqli;
+
+
 
 // si le formulaire est soumis (POST), on traite la mise à jour
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -10,9 +10,9 @@
 <body>
 
 <?php
-  // on inclut juste le minimum nécessaire
-  include("config.inc.php");
-  include("functions.inc.php");
+  // Inclusion depuis le dossier data
+  include("data/config.inc.php");
+  include("data/functions.inc.php");
 ?>
 
 <h1>Gestion des Personnes et Loisirs</h1>
@@ -39,25 +39,25 @@
 if (isset($_GET['p'])) {
     switch ($_GET['p']) {
         case 'install':
-            include('install.php');
+            include('pages/install.php');
             break;
         case 'nouvellefiche':
-            include('nouvellefiche.php');
+            include('pages/nouvellefiche.php');
             break;
         case 'listefiches':
-            include('listefiches.php');
+            include('pages/listefiches.php');
             break;
         case 'afficherfiche':
-            include('afficherfiche.php');
+            include('pages/afficherfiche.php');
             break;
         case 'modifierfiche':
-            include('modifierfiche.php');
+            include('pages/modifierfiche.php');
             break;
         case 'explorerloisirs':
-            include('explorerloisirs.php');
+            include('pages/explorerloisirs.php');
             break;
         case 'fichesparloisir':
-            include('fichesparloisir.php');
+            include('pages/fichesparloisir.php');
             break;
         default:
             echo "<p>Page non trouvée.</p>";

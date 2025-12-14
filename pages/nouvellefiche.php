@@ -1,6 +1,7 @@
 <?php
-require_once("functions.inc.php");
-include_once("config.inc.php");
+include_once("data/functions.inc.php");
+include_once("data/config.inc.php");
+
 global $host, $pass, $user, $base, $mysqli;
 
 
@@ -38,7 +39,7 @@ while ($mot = mysqli_fetch_assoc($resMots)) {
 
 <h1>Nouvelle fiche</h1>
 
-<form method="post" action="enregistrer.php">
+<form method="post" action="pages/enregistrer.php">
 
     <!-- coordonnées -->
     <p>Nom Prénom : <input type="text" name="nom_prenom" required></p>
