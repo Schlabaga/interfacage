@@ -3,14 +3,14 @@ require_once("functions.inc.php");
 include_once("config.inc.php");
 global $mysqli;
 
-// Récupération de l'ID depuis l'URL
+// récupération de l'id dans  l'URL
 $id_personne = intval($_GET['id'] ?? 0);
 
 if ($id_personne === 0) {
     die("ID de personne invalide.");
 }
 
-// Récupération des informations de la personne
+// récupération des informations de la personne
 $resultPersonne = query($mysqli, "SELECT * FROM personnes WHERE id_personne = $id_personne");
 $personne = mysqli_fetch_assoc($resultPersonne);
 
@@ -18,7 +18,7 @@ if (!$personne) {
     die("Personne non trouvée.");
 }
 
-// Récupération des loisirs de la personne, regroupés par catégorie
+// récupération des loisirs de la personne regroupés par catégorie
 $resultLoisirs = query($mysqli, "
     SELECT c.nom_categorie, pl.mot_cle
     FROM personnes_loisirs pl
@@ -27,13 +27,13 @@ $resultLoisirs = query($mysqli, "
     ORDER BY c.nom_categorie, pl.mot_cle
 ");
 
-// Regroupement des loisirs par catégorie
+// regroupement des loisirs par catégorie
 $loisirs = [];
 while ($loisir = mysqli_fetch_assoc($resultLoisirs)) {
     $loisirs[$loisir['nom_categorie']][] = $loisir['mot_cle'];
 }
 
-// Formatage de la date de naissance (si elle existe)
+// formatage de la date de naissance (si elle existe) sinon rien
 $dateFormatee = "Non renseignée";
 if (!empty($personne['date_naissance']) && $personne['date_naissance'] !== '0000-00-00') {
     $dateNaissance = new DateTime($personne['date_naissance']);

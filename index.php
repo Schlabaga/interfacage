@@ -10,7 +10,7 @@
 <body>
 
 <?php
-  // On inclut juste le minimum nécessaire
+  // on inclut juste le minimum nécessaire
   include("config.inc.php");
   include("functions.inc.php");
 ?>

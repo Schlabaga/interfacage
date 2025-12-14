@@ -5,13 +5,13 @@ global $host, $pass, $user, $base, $mysqli;
 
 
 
-// Récupération des catégories
+// récupération des catégories
 $resCat = query($mysqli, "SELECT id_categorie, nom_categorie FROM categories_loisir ORDER BY nom_categorie");
 
-// Récupération des mots-clés
+// récupération des mots-clés
 $resMots = query($mysqli, "SELECT id_mot, id_categorie, mot_cle FROM mots_cles ORDER BY mot_cle");
 
-// Regroupement en tableau associatif
+// regroupement en tableau associatif
 $categories = [];
 while ($cat = mysqli_fetch_assoc($resCat)) {
     $categories[$cat['id_categorie']] = [

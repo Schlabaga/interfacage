@@ -3,10 +3,10 @@ require_once("functions.inc.php");
 include_once("config.inc.php");
 global $mysqli;
 
-// Récupération des catégories
+// récupération des catégories
 $resultCategories = query($mysqli, "SELECT id_categorie, nom_categorie FROM categories_loisir ORDER BY nom_categorie");
 
-// Récupération de tous les mots-clés regroupés par catégorie
+// récupération de tous les mots-clés regroupés par catégorie
 $categories = [];
 while ($cat = mysqli_fetch_assoc($resultCategories)) {
     $id_cat = $cat['id_categorie'];
@@ -15,7 +15,7 @@ while ($cat = mysqli_fetch_assoc($resultCategories)) {
         'mots' => []
     ];
 
-    // Récupérer les mots-clés pour cette catégorie
+    // récupérer les mots-clés pour cette catégorie
     $resultMots = query($mysqli, "SELECT id_mot, mot_cle FROM mots_cles WHERE id_categorie = $id_cat ORDER BY mot_cle");
 
     while ($mot = mysqli_fetch_assoc($resultMots)) {

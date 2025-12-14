@@ -3,7 +3,7 @@ require_once("functions.inc.php");
 include_once("config.inc.php");
 global $mysqli;
 
-// Récupération de toutes les personnes triées par nom_prenom
+// récupération de toutes les personnes triées par nom_prenom
 $result = query($mysqli, "SELECT id_personne, nom_prenom FROM personnes ORDER BY nom_prenom");
 ?>
 

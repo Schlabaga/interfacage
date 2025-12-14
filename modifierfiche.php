@@ -3,7 +3,7 @@ require_once("functions.inc.php");
 include_once("config.inc.php");
 global $mysqli;
 
-// Si le formulaire est soumis (POST), on traite la mise à jour
+// si le formulaire est soumis (POST), on traite la mise à jour
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_personne = intval($_POST['id_personne'] ?? 0);
 
@@ -14,13 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $telephone = mysqli_real_escape_string($mysqli, $_POST['telephone'] ?? "");
         $mail = mysqli_real_escape_string($mysqli, $_POST['mail'] ?? "");
 
-        // Gestion de la date : NULL si vide
+        // gestion de la date : NULL si vide
         $dateSQL = (!empty($naissance)) ? "'$naissance'" : "NULL";
         $adresseSQL = (!empty($adresse)) ? "'$adresse'" : "NULL";
         $telephoneSQL = (!empty($telephone)) ? "'$telephone'" : "NULL";
         $mailSQL = (!empty($mail)) ? "'$mail'" : "NULL";
 
-        // Mise à jour des informations de la personne
+        // mise à jour des informations de la personne
         query($mysqli, "UPDATE personnes SET 
             nom_prenom = '$nom_prenom',
             date_naissance = $dateSQL,
@@ -29,10 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             email = $mailSQL
             WHERE id_personne = $id_personne");
 
-        // Suppression des anciens loisirs
+        // suppression des anciens loisirs
         query($mysqli, "DELETE FROM personnes_loisirs WHERE id_personne = $id_personne");
 
-        // Insertion des nouveaux loisirs
+        // insertion des nouveaux loisirs
         if (!empty($_POST['loisirs'])) {
             foreach ($_POST['loisirs'] as $id_mot) {
                 $id_mot = intval($id_mot);
@@ -51,20 +51,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Redirection vers la fiche mise à jour
+        // redirection vers la fiche mise à jour
         header("Location: index.php?p=afficherfiche&id=$id_personne");
         exit;
     }
 }
 
-// Récupération de l'ID depuis l'URL (GET)
+// récupération de l'ID depuis le GET
 $id_personne = intval($_GET['id'] ?? 0);
 
 if ($id_personne === 0) {
     die("ID de personne invalide.");
 }
 
-// Récupération des informations de la personne
+// récupération des informations de la personne
 $resultPersonne = query($mysqli, "SELECT * FROM personnes WHERE id_personne = $id_personne");
 $personne = mysqli_fetch_assoc($resultPersonne);
 
@@ -72,7 +72,7 @@ if (!$personne) {
     die("Personne non trouvée.");
 }
 
-// Récupération des loisirs actuels de la personne
+// récupération des loisirs actuels de la personne
 $resultLoisirsActuels = query($mysqli, "
     SELECT mc.id_mot
     FROM personnes_loisirs pl
@@ -85,13 +85,13 @@ while ($loisir = mysqli_fetch_assoc($resultLoisirsActuels)) {
     $loisirsCoches[] = $loisir['id_mot'];
 }
 
-// Récupération des catégories
+// récupération des catégories
 $resCat = query($mysqli, "SELECT id_categorie, nom_categorie FROM categories_loisir ORDER BY nom_categorie");
 
-// Récupération des mots-clés
+// récupération des mots-clés
 $resMots = query($mysqli, "SELECT id_mot, id_categorie, mot_cle FROM mots_cles ORDER BY mot_cle");
 
-// Regroupement en tableau associatif
+// regroupement en tableau
 $categories = [];
 while ($cat = mysqli_fetch_assoc($resCat)) {
     $categories[$cat['id_categorie']] = [

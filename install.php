@@ -189,6 +189,7 @@
     }
 
     // Créer un mapping nom_categorie -> id_categorie
+
     $mapCategories = [];
     $result = mysqli_query($mysqli, "SELECT `id_categorie`, `nom_categorie` FROM `categories_loisir`");
     while ($row = mysqli_fetch_assoc($result)) {
@@ -243,7 +244,7 @@
         }
     }
 
-    // Insert final
+    // insert final
     if (!empty($valuesAssociations)) {
         $sqlAssociations = "INSERT INTO `personnes_loisirs` (`id_personne`, `id_categorie`, `mot_cle`) VALUES "
                          . implode(", ", $valuesAssociations);

@@ -3,14 +3,14 @@ require_once("functions.inc.php");
 include_once("config.inc.php");
 global $mysqli;
 
-// Récupération de l'ID du mot-clé depuis l'URL
+// récupération de l'ID du mot-clé depuis l'URL
 $id_mot = intval($_GET['id_mot'] ?? 0);
 
 if ($id_mot === 0) {
     die("ID de loisir invalide.");
 }
 
-// Récupération du nom du mot-clé et de sa catégorie
+// récupération du nom du mot-clé et de sa catégorie
 $resultMot = query($mysqli, "
     SELECT mc.mot_cle, c.nom_categorie 
     FROM mots_cles mc
@@ -24,7 +24,7 @@ if (!$motInfo) {
     die("Loisir non trouvé.");
 }
 
-// Récupération des personnes ayant ce loisir
+// récupération des personnes ayant ce loisir
 $resultPersonnes = query($mysqli, "
     SELECT DISTINCT p.id_personne, p.nom_prenom
     FROM personnes p
@@ -40,7 +40,7 @@ $resultPersonnes = query($mysqli, "
 <head>
     <meta charset="UTF-8">
     <title>Personnes pratiquant : <?php echo htmlspecialchars($motInfo['mot_cle']); ?></title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
 
