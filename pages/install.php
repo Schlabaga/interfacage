@@ -1,18 +1,9 @@
 <?php
 include_once("data/functions.inc.php");
 include_once("data/config.inc.php");
-global $host, $pass, $user;
+global $host, $pass, $user, $mysqli;
 
 $db_name = "PERSONNES_LOISIRS";
-
-// Connexion à la BDD
-$mysqli = mysqli_connect($host, $user, $pass,  null,8889)
-    or die("Connexion impossible : " . mysqli_connect_error());
-
-query($mysqli, "CREATE DATABASE IF NOT EXISTS `".$db_name."`");
-
-mysqli_select_db($mysqli, $db_name)
-    or die("Sélection de la base de données impossible : " . mysqli_error($mysqli));
 
 query($mysqli, "DROP TABLE IF EXISTS `personnes_loisirs`");
 query($mysqli, "DROP TABLE IF EXISTS `mots_cles`");
